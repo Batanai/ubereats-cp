@@ -3,17 +3,28 @@ import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface Props {
+  navigation: any;
   restaurantData: any;
 }
 
-const RestaurantItems = ({ restaurantData }: Props) => {
+const RestaurantItems = ({ navigation, ...props }: Props) => {
   return (
     <>
-      {restaurantData.map((restaurant: any, index: number) => (
+      {props.restaurantData.map((restaurant: any, index: number) => (
         <TouchableOpacity
           key={index}
           activeOpacity={0.5}
-          style={{ marginBottom: 30 }}>
+          style={{ marginBottom: 30 }}
+          onPress={() =>
+            navigation.navigate('detail', {
+              name: restaurant.name,
+              image: restaurant.image_url,
+              price: restaurant.price,
+              reviews: restaurant.reviews,
+              rating: restaurant.rating,
+              categories: restaurant.categories,
+            })
+          }>
           <View style={{ marginTop: 10, padding: 15, backgroundColor: '#fff' }}>
             <RestaurantImage image={restaurant.image_url} />
             <RestaurantInfo name={restaurant.name} rating={restaurant.rating} />

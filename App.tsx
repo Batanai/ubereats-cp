@@ -1,15 +1,7 @@
-import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
-import Home from "./src/screens/Home";
-
+import RootNavigator from './RootNavigator';
 
 const App = () => {
-  return (
-    <Home/>
-  );
+  return <RootNavigator />;
 };
-
-const styles = StyleSheet.create({
- 
-});
 
 export default App;
