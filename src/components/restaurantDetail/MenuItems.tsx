@@ -8,9 +8,11 @@ import { selectCartItems } from '../../redux/reducers/cartReducer';
 
 interface Props {
   restaurantName: any;
+  hideCheckbox: boolean;
+  marginLeft: any;
 }
 
-const MenuItems = ({ restaurantName }: Props) => {
+const MenuItems = ({ restaurantName, hideCheckbox, marginLeft }: Props) => {
   const dispatch = useDispatch();
   const cartItems = useSelector(selectCartItems);
   const selectItem = (item: any, checkboxValue: boolean) => {
@@ -26,8 +28,10 @@ const MenuItems = ({ restaurantName }: Props) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       {foods.map((food, index) => (
-        <View key={index}>
-          <View style={styles.menuItem}>
+        <View
+          key={index}
+          style={{ flexDirection: 'row', marginHorizontal: 20 }}>
+          {!hideCheckbox ? (
             <BouncyCheckbox
               size={20}
               iconStyle={{ borderColor: 'lightgray' }}
@@ -35,13 +39,8 @@ const MenuItems = ({ restaurantName }: Props) => {
               onPress={checkboxValue => selectItem(food, checkboxValue)}
               isChecked={IsFoodInCart(food, cartItems)}
             />
-            <FoodInfo
-              title={food.title}
-              description={food.description}
-              price={food.price}
-            />
-            <FoodImage image={food.image} />
-          </View>
+          ) : null}
+          <MenuItem food={food} marginLeft={marginLeft} />
           <Divider
             width={0.5}
             orientation="vertical"
@@ -53,6 +52,17 @@ const MenuItems = ({ restaurantName }: Props) => {
   );
 };
 
+export const MenuItem = ({ food, marginLeft }) => (
+  <View style={styles.menuItem}>
+    <FoodInfo
+      title={food.title}
+      description={food.description}
+      price={food.price}
+    />
+    <FoodImage image={food.image} marginLeft={marginLeft ? marginLeft : 0} />
+  </View>
+);
+
 const FoodInfo = ({ title, description, price }) => (
   <View style={{ width: 200, justifyContent: 'space-evenly' }}>
     <Text style={styles.titleText}>{title}</Text>
@@ -61,11 +71,11 @@ const FoodInfo = ({ title, description, price }) => (
   </View>
 );
 
-const FoodImage = ({ image }) => (
+const FoodImage = ({ image, marginLeft }) => (
   <View>
     <Image
       source={{ uri: image }}
-      style={{ height: 100, width: 100, borderRadius: 8 }}
+      style={{ height: 100, width: 100, borderRadius: 8, marginLeft }}
     />
   </View>
 );

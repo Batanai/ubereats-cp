@@ -38,3 +38,5 @@ let defaultState = {
   export default cartReducer;
 
   export const selectCartItems = (state: any) => state.cartReducer.selectedItems.items
+  export const selectRestaurantName = (state: any) => state.cartReducer.selectedItems.restaurantName
+  export const selectCheckedItem = (state: any) => state.cartReducer.selectedItems.checkboxValue

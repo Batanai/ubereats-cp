@@ -6,6 +6,7 @@ import Home from './src/screens/Home';
 import RestaurantDetail from './src/screens/RestaurantDetail';
 import { Provider as ReduxProvider } from 'react-redux';
 import configureStore from './src/redux/store';
+import OrderCompleted from './src/screens/OrderCompleted';
 
 interface Props {}
 
@@ -23,6 +24,7 @@ const RootNavigator = (props: Props) => {
         <Stack.Navigator initialRouteName="home" screenOptions={screenOptions}>
           <Stack.Screen name="home" component={Home} />
           <Stack.Screen name="detail" component={RestaurantDetail} />
+          <Stack.Screen name="completed" component={OrderCompleted} />
         </Stack.Navigator>
       </NavigationContainer>
     </ReduxProvider>
